@@ -4,7 +4,14 @@
     <div class="page-footer__content">
         <div class="page-footer__top">
             <h3 class="page-footer__top-heading">
-                Вокруг тебя. <br>О тебе
+                <?
+                $APPLICATION->IncludeFile(
+                    SITE_DIR . "include/footer/top-heading.php",
+                    array(),
+                    array("MODE" => "html")
+                );
+                ?>
+
             </h3>
             <ul class="page-footer__social-list">
                 <li class="page-footer__social-list-item">
@@ -23,94 +30,29 @@
                 </li>
             </ul>
             <nav class="page-footer__nav">
-                <ul class="page-footer__nav-list">
-                    <li class="page-footer__nav-list-item">
-                        <a href="#" class="page-footer__nav-link">
-                            Продукция
-                        </a>
-                        <ul class="page-footer__nav-submenu-list">
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Каталог
-                                </a>
-                            </li>
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Ноутбуки
-                                </a>
-                            </li>
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Моноблоки
-                                </a>
-                            </li>
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Системные блоки
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="page-footer__nav-list-item">
-                        <a href="#" class="page-footer__nav-link">
-                            Бренд
-                        </a>
-                        <ul class="page-footer__nav-submenu-list">
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    О нас
-                                </a>
-                            </li>
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Где купить
-                                </a>
-                            </li>
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Блог
-                                </a>
-                            </li>
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Контакты
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="page-footer__nav-list-item">
-                        <a href="#" class="page-footer__nav-link">
-                            Сервисы
-                        </a>
-                        <ul class="page-footer__nav-submenu-list">
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Поддержка
-                                </a>
-                            </li>
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Сервисные центры
-                                </a>
-                            </li>
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Драйверы
-                                </a>
-                            </li>
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Вопрос-ответ
-                                </a>
-                            </li>
-                            <li class="page-footer__nav-submenu-list-item">
-                                <a href="#" class="page-footer__nav-submenu-link">
-                                    Гарантия
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                <?php $APPLICATION->IncludeComponent(
+	"bitrix:menu", 
+	"footer", 
+	array(
+		"ALLOW_MULTI_SELECT" => "N",
+		"CHILD_MENU_TYPE" => "podmenu",
+		"DELAY" => "N",
+		"MAX_LEVEL" => "2",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_TYPE" => "N",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"ROOT_MENU_TYPE" => "bottom",
+		"USE_EXT" => "Y",
+		"COMPONENT_TEMPLATE" => "footer"
+	),
+	false,
+	array(
+		"ACTIVE_COMPONENT" => "Y"
+	)
+);
+                ?>
             </nav>
         </div>
         <a href="#" class="page-footer__logo">
@@ -119,7 +61,13 @@
         <div class="page-footer__bottom">
             <div class="page-footer__bottom-left">
                 <div class="page-footer__copyright">
-                    © 2025 ООО «OSIO»
+                    <?
+                    $APPLICATION->IncludeFile(
+                        SITE_DIR . "include/footer/copyright.php",
+                        array(),
+                        array("MODE" => "text")
+                    );
+                    ?>
                 </div>
                 <a href="#" class="page-footer__policy">
                     Политика конфиденциальности
