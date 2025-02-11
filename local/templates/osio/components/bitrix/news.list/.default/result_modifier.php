@@ -23,18 +23,49 @@ if (!empty($arParams['TITLE'])) {
     if (strpos($arParams['TITLE'], '#COUNT#') !== false) {
         $elementCount = 0;
 
-        $arFilter = Array(
-            "IBLOCK_ID"=>IntVal($arParams['IBLOCK_ID']),
-            "ACTIVE"=>"Y",
+        $arFilter = array(
+            "IBLOCK_ID" => IntVal($arParams['IBLOCK_ID']),
+            "ACTIVE" => "Y",
             "INCLUDE_SUBSECTIONS" => 'Y'
         );
-        $res = CIBlockElement::GetList(Array("SORT"=>"ASC"), $arFilter, Array("ID"));
-        if($count = $res->SelectedRowsCount()) {
+        $res = CIBlockElement::GetList(array("SORT" => "ASC"), $arFilter, array("ID"));
+        if ($count = $res->SelectedRowsCount()) {
             $elementCount = $count;
         }
         $arParams['TITLE'] = str_replace('#COUNT#', $elementCount, $arParams['TITLE']);
     }
 }
 
-    unset($arItem);
-    unset($section);
+CModule::IncludeModule("iblock"); // Убедитесь, что модуль iblock подключен
+
+$arFilter = array(
+    'SITE_ID' => SITE_ID,
+    'ID' => $arParams['IBLOCK_ID'],
+    'ACTIVE' => 'Y'
+);
+
+$db_iblock = CIBlock::GetList(array(), $arFilter, false, array('LIST_PAGE_URL'));
+
+$iblockUrl = '';
+
+if ($ar_iblock = $db_iblock->Fetch()) {
+    $iblockUrl = $ar_iblock["LIST_PAGE_URL"];
+
+    // Если используется SEF (ЧПУ), LIST_PAGE_URL может быть шаблоном
+    // Например, #SITE_DIR#/news/
+    // В этом случае, вам нужно заменить #SITE_DIR# на реальный URL сайта
+
+    if (strpos($iblockUrl, "#SITE_DIR#") !== false) {
+        $iblockUrl = str_replace("#SITE_DIR#", '//' . $_SERVER["HTTP_HOST"], $iblockUrl);
+    }
+    if (strpos($iblockUrl, "#IBLOCK_CODE#") !== false) {
+        $iblockCode = $ar_iblock["CODE"];
+        $iblockUrl = str_replace("#IBLOCK_CODE#", $iblockCode, $iblockUrl);
+    }
+    $arParams['IBLOCK_URL'] = $iblockUrl;
+}
+unset($db_iblock);
+unset($ar_iblock);
+unset($iblockCode);
+unset($arItem);
+unset($section);

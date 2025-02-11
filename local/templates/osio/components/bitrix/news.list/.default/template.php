@@ -37,7 +37,7 @@ $this->setFrameMode(true);
             $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
             ?>
             <li class="all-materials__list-item" id="<?= $this->GetEditAreaId($arItem['ID']); ?>">
-                <a href="#" class="material-card">
+                <a href="<?= $arItem["DETAIL_PAGE_URL"] ?>" class="material-card">
                     <div class="material-card__image-container">
                         <img src="<?= $arItem["PREVIEW_PICTURE"]["SRC"] ?>"
                              alt="<?= $arItem["PREVIEW_PICTURE"]["ALT"] ?>"
@@ -57,9 +57,9 @@ $this->setFrameMode(true);
     <? endforeach; ?>
         </ul>
         <? if ($arParams["DISPLAY_BOTTOM_PAGER"]): ?>
-            <br/><?= $arResult["NAV_STRING"] ?>
-        <? endif; ?>
-        <a href="#" class="all-materials__show-more">
+            <a href="<?=$arParams['IBLOCK_URL']?>" class="all-materials__show-more">
             показать еще </a>
+        <? endif; ?>
+
     </div>
 </section>
